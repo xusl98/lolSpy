@@ -17,7 +17,7 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/champ_photo"
+                android:id="@+id/image_champ"
                 android:layout_width="57dp"
                 android:layout_height="54dp"
                 android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="10sp"
-                android:layout_toRightOf="@+id/champ_photo"
+                android:layout_toRightOf="@+id/image_champ"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -38,7 +38,7 @@
                 android:id="@+id/champ_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/champ_photo"
+                android:layout_below="@+id/image_champ"
                 android:layout_marginLeft="42dp"
                 android:layout_marginTop="-42dp"
                 android:layout_toRightOf="@+id/champ_name"

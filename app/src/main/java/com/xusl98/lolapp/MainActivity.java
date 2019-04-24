@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +16,11 @@ import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.api.endpoints.champion.dto.ChampionInfo;
 import net.rithms.riot.api.endpoints.champion_mastery.dto.ChampionMastery;
+import net.rithms.riot.api.endpoints.league.dto.LeaguePosition;
+import net.rithms.riot.api.endpoints.league.methods.GetLeaguePositionsBySummonerId;
+import net.rithms.riot.api.endpoints.match.dto.Match;
+import net.rithms.riot.api.endpoints.match.dto.Participant;
+import net.rithms.riot.api.endpoints.match.dto.ParticipantStats;
 import net.rithms.riot.api.endpoints.static_data.dto.Champion;
 import net.rithms.riot.api.endpoints.static_data.dto.ChampionList;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
@@ -29,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView viewName;
     private TextView viewLvl;
-    private TextView textView;
+    private TextView viewRank;
+
+    private Button btnHistory;
 
 
     private RecyclerView recyclerView;
@@ -45,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         viewName = (TextView) findViewById(R.id.view_name);
         viewLvl = (TextView) findViewById(R.id.view_lvl);
+        viewRank = (TextView) findViewById(R.id.view_rank);
+
+        btnHistory = (Button) findViewById(R.id.btn_history) ;
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         manager = new LinearLayoutManager(this);
@@ -53,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 
 
-        final ApiConfig config = new ApiConfig().setKey("RGAPI-f8c960f4-7d6c-4137-a3c7-36b38e25e4d6");
+        final ApiConfig config = new ApiConfig().setKey("RGAPI-68d1b0e4-6ee2-4759-a3b4-530bc0dd7ed2");
         final RiotApi api = new RiotApi(config);
 
         final String summonerName;
@@ -84,12 +96,15 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     adapterInstructions(myMasteries);
-
+                    Set<LeaguePosition> rank = api.getLeaguePositionsBySummonerId(Platform.EUW, summoner.getId());
+                    for (LeaguePosition l : rank){
+                        if (l.getQueueType().equals("RANKED_SOLO_5x5")){
+                            viewRank.setText(l.getTier() + " " + l.getRank() + " " + l.getLeaguePoints() + "LP");
+                        }
+                    }
 
                     setTextView(viewName, summoner.getName());
                     setTextView(viewLvl, "Level: " + String.valueOf(summoner.getSummonerLevel()));
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -97,6 +112,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         thread.start();
+
+
+
+        //HISTORY BUTTON
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent historyIntent = new Intent(MainActivity.this, HistoryActivity.class);
+                historyIntent.putExtra("summonerName", summonerName);
+                startActivity(historyIntent);
+            }
+        });
 
 
     }
