@@ -72,7 +72,7 @@ public class HistoryActivity extends AppCompatActivity {
                 try {
                     Summoner summoner = api.getSummonerByName(Platform.EUW, summonerName);
 
-                    //TODO PARTICIPANT FOR MATCH
+                    // PARTICIPANT FOR MATCH
                     List<MatchReference> matches = api.getMatchListByAccountId(Platform.EUW, summoner.getAccountId()).getMatches();
                     ArrayList<MatchReference> only10 = new ArrayList<MatchReference>();
                     System.out.println("aqui1");
