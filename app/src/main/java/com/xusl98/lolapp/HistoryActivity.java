@@ -16,6 +16,8 @@ import net.rithms.riot.api.endpoints.match.dto.MatchList;
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;
 import net.rithms.riot.api.endpoints.match.dto.Participant;
 import net.rithms.riot.api.endpoints.match.dto.ParticipantStats;
+import net.rithms.riot.api.endpoints.static_data.dto.Champion;
+import net.rithms.riot.api.endpoints.static_data.dto.ChampionList;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 import net.rithms.riot.constant.Platform;
 
@@ -46,7 +48,7 @@ public class HistoryActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
 
-        final ApiConfig config = new ApiConfig().setKey("RGAPI-68d1b0e4-6ee2-4759-a3b4-530bc0dd7ed2");
+        final ApiConfig config = new ApiConfig().setKey("RGAPI-e24ac602-c50b-4b49-b9e3-09ac98d31e07");
         final RiotApi api = new RiotApi(config);
 
 
@@ -72,6 +74,9 @@ public class HistoryActivity extends AppCompatActivity {
                 try {
                     Summoner summoner = api.getSummonerByName(Platform.EUW, summonerName);
 
+
+
+
                     // PARTICIPANT FOR MATCH
                     List<MatchReference> matches = api.getMatchListByAccountId(Platform.EUW, summoner.getAccountId()).getMatches();
                     ArrayList<MatchReference> only10 = new ArrayList<MatchReference>();
@@ -88,7 +93,7 @@ public class HistoryActivity extends AppCompatActivity {
                         Match thisMatch = matches2.get(i);
                         Participant p = thisMatch.getParticipantByAccountId(summoner.getAccountId());
                         ParticipantStats stats = p.getStats();
-                        myMatches.add(new com.xusl98.lolapp.Match(p.getChampionId(), stats.getItem1(), stats.getItem2(), stats.getItem3(), stats.getItem4(), stats.getItem5(),stats.getItem6(), p.getSpell1Id(), p.getSpell2Id(), stats.getKills(), stats.getDeaths(), stats.getAssists(), stats.isWin()));
+                        myMatches.add(new com.xusl98.lolapp.Match(p.getChampionId(), stats.getItem0(), stats.getItem1(), stats.getItem2(), stats.getItem3(), stats.getItem4(),stats.getItem5(), p.getSpell1Id(), p.getSpell2Id(), stats.getKills(), stats.getDeaths(), stats.getAssists(), stats.isWin(), thisMatch.getQueueId()));
                     }
 
                     adapterInstructions(myMatches);

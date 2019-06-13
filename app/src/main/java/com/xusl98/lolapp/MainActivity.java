@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 
 
-        final ApiConfig config = new ApiConfig().setKey("RGAPI-68d1b0e4-6ee2-4759-a3b4-530bc0dd7ed2");
+        final ApiConfig config = new ApiConfig().setKey("RGAPI-e24ac602-c50b-4b49-b9e3-09ac98d31e07");
         final RiotApi api = new RiotApi(config);
 
         final String summonerName;
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+
 
                     Summoner summoner = api.getSummonerByName(Platform.EUW, summonerName);
                     List<ChampionMastery> masteriesList = api.getChampionMasteriesBySummoner(Platform.EUW, summoner.getId());

@@ -14,9 +14,10 @@ public class Match {
     private int kills;
     private int deaths;
     private int assists;
+    private int queue;
     private boolean matchResult;
 
-    public Match(int champId, int item1, int item2, int item3, int item4, int item5, int item6, int summoner1, int summoner2, int kills, int deaths, int assists, boolean matchResult) {
+    public Match(int champId, int item1, int item2, int item3, int item4, int item5, int item6, int summoner1, int summoner2, int kills, int deaths, int assists, boolean matchResult, int queue) {
         this.champId = champId;
         this.item1 = item1;
         this.item2 = item2;
@@ -30,6 +31,11 @@ public class Match {
         this.deaths = deaths;
         this.assists = assists;
         this.matchResult = matchResult;
+        this.queue = queue;
+    }
+
+    public int getQueue() {
+        return queue;
     }
 
     public int getChampId() {

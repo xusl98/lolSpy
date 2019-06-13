@@ -46,6 +46,7 @@ public class MasteriesAdapter extends RecyclerView.Adapter {
                 put(432, "Bard");
                 put(53, "Blitzcrank");
                 put(63, "Brand");
+                put(517, "Sylas");
                 put(201, "Braum");
                 put(51, "Caitlyn");
                 put(164, "Camille");
@@ -58,6 +59,7 @@ public class MasteriesAdapter extends RecyclerView.Adapter {
                 put(36, "Dr. Mundo");
                 put(245, "Ekko");
                 put(60, "Elise");
+                put(350, "Yuumi");
                 put(28, "Evelynn");
                 put(81, "Ezreal");
                 put(9, "Fiddlesticks");
@@ -201,6 +203,8 @@ public class MasteriesAdapter extends RecyclerView.Adapter {
                 put(31, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Chogath.png");
                 put(42, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Corki.png");
                 put(122, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Darius.png");
+                put(517, "http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/Sylas.png");
+                put(350, "http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/Yuumi.png");
                 put(131, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Diana.png");
                 put(119, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Draven.png");
                 put(36, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/DrMundo.png");
