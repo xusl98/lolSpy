@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = this;
 
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
 
-                    Summoner summoner = api.getSummonerByName(Platform.EUW, summonerName);
-                    List<ChampionMastery> masteriesList = api.getChampionMasteriesBySummoner(Platform.EUW, summoner.getId());
+                    Summoner summoner = api.getSummonerByName(StaticData.platform, summonerName);
+                    List<ChampionMastery> masteriesList = api.getChampionMasteriesBySummoner(StaticData.platform, summoner.getId());
                     String x = "";
                     ArrayList<Mastery> myMasteries = new ArrayList<Mastery>();
                     for (ChampionMastery c : masteriesList) {
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("PRUEBA");
                     setTextView(viewLvl, "Level: " + String.valueOf(summoner.getSummonerLevel()));
                     System.out.println("PRUEBA");
-                    Set<LeagueEntry> rank  = api.getLeagueEntriesBySummonerId(Platform.EUW, summoner.getId());
+                    Set<LeagueEntry> rank  = api.getLeagueEntriesBySummonerId(StaticData.platform, summoner.getId());
                     for (LeagueEntry l : rank){
                         if (l.getQueueType().equals("RANKED_SOLO_5x5")){
                             viewRank.setText(l.getTier() + " " + l.getRank() + " " + l.getLeaguePoints() + "LP");

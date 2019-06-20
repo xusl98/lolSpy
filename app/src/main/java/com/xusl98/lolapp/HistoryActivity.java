@@ -12,21 +12,14 @@ import android.widget.TextView;
 
 import net.rithms.riot.api.ApiConfig;
 import net.rithms.riot.api.RiotApi;
-import net.rithms.riot.api.endpoints.champion_mastery.dto.ChampionMastery;
-import net.rithms.riot.api.endpoints.league.dto.LeaguePosition;
 import net.rithms.riot.api.endpoints.match.dto.Match;
-import net.rithms.riot.api.endpoints.match.dto.MatchList;
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;
 import net.rithms.riot.api.endpoints.match.dto.Participant;
 import net.rithms.riot.api.endpoints.match.dto.ParticipantStats;
-import net.rithms.riot.api.endpoints.static_data.dto.Champion;
-import net.rithms.riot.api.endpoints.static_data.dto.ChampionList;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
-import net.rithms.riot.constant.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -60,7 +53,6 @@ public class HistoryActivity extends AppCompatActivity {
 
         final String summonerName;
         summonerName = StaticData.summonerName;
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +62,6 @@ public class HistoryActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
         toolbar.setTitle(summonerName);
 
 
@@ -79,13 +70,13 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Summoner summoner = api.getSummonerByName(Platform.EUW, summonerName);
+                    Summoner summoner = api.getSummonerByName(StaticData.platform, summonerName);
 
 
 
 
                     // PARTICIPANT FOR MATCH
-                    List<MatchReference> matches = api.getMatchListByAccountId(Platform.EUW, summoner.getAccountId()).getMatches();
+                    List<MatchReference> matches = api.getMatchListByAccountId(StaticData.platform, summoner.getAccountId()).getMatches();
                     ArrayList<MatchReference> only10 = new ArrayList<MatchReference>();
                     System.out.println("aqui1");
                     for (int i = 0; i < 10; i++){
@@ -93,7 +84,7 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                     ArrayList<Match> matches2 = new ArrayList<Match>();
                     for (MatchReference mm : only10){
-                        matches2.add(api.getMatch(Platform.EUW, mm.getGameId()));
+                        matches2.add(api.getMatch(StaticData.platform, mm.getGameId()));
                     }
                     ArrayList<com.xusl98.lolapp.Match> myMatches = new ArrayList<com.xusl98.lolapp.Match>();
                     for (int i = 0; i < matches2.size(); i++){
