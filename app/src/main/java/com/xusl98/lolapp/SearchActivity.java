@@ -24,8 +24,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, MainActivity.class);
-                String summonerName = input.getEditText().getText().toString();
-                i.putExtra("summonerName", summonerName);
+                StaticData.summonerName = input.getEditText().getText().toString();
                 startActivity(i);
             }
         });

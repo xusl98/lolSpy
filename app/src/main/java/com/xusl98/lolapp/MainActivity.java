@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,7 +35,6 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView viewName;
     private TextView viewLvl;
     private TextView viewRank;
 
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager manager;
 
+    private Toolbar toolbar;
+
     private Context mContext;
 
     @Override
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewName = (TextView) findViewById(R.id.view_name);
+        toolbar = (Toolbar) findViewById(R.id.toolbarMain);
+
         viewLvl = (TextView) findViewById(R.id.view_lvl);
         viewRank = (TextView) findViewById(R.id.view_rank);
 
@@ -65,20 +68,22 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentBack = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intentBack);
+            }
+        });
+
+
         final ApiConfig config = new ApiConfig().setKey("RGAPI-e24ac602-c50b-4b49-b9e3-09ac98d31e07");
         final RiotApi api = new RiotApi(config);
 
         final String summonerName;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                summonerName = null;
-            } else {
-                summonerName = extras.getString("summonerName");
-            }
-        } else {
-            summonerName = (String) savedInstanceState.getSerializable("summonerName");
-        }
+        summonerName = StaticData.summonerName;
+
+        toolbar.setTitle(summonerName);
 
 
         Thread thread = new Thread(new Runnable() {
@@ -97,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     adapterInstructions(myMasteries);
+                    System.out.println("PRUEBA");
+                    setTextView(viewLvl, "Level: " + String.valueOf(summoner.getSummonerLevel()));
                     Set<LeaguePosition> rank = api.getLeaguePositionsBySummonerId(Platform.EUW, summoner.getId());
                     for (LeaguePosition l : rank){
                         if (l.getQueueType().equals("RANKED_SOLO_5x5")){
@@ -104,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    setTextView(viewName, summoner.getName());
-                    setTextView(viewLvl, "Level: " + String.valueOf(summoner.getSummonerLevel()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -121,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent historyIntent = new Intent(MainActivity.this, HistoryActivity.class);
-                historyIntent.putExtra("summonerName", summonerName);
                 startActivity(historyIntent);
             }
         });

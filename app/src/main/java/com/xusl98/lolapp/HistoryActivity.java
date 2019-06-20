@@ -1,10 +1,13 @@
 package com.xusl98.lolapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import net.rithms.riot.api.ApiConfig;
@@ -33,14 +36,14 @@ public class HistoryActivity extends AppCompatActivity {
 
     private Context mContext;
 
-    private TextView viewName;
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        viewName = (TextView) findViewById(R.id.view_name);
 
         mContext = this;
 
@@ -48,23 +51,27 @@ public class HistoryActivity extends AppCompatActivity {
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbarHistory);
+
+
         final ApiConfig config = new ApiConfig().setKey("RGAPI-e24ac602-c50b-4b49-b9e3-09ac98d31e07");
         final RiotApi api = new RiotApi(config);
 
 
         final String summonerName;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                summonerName = null;
-            } else {
-                summonerName = extras.getString("summonerName");
-            }
-        } else {
-            summonerName = (String) savedInstanceState.getSerializable("summonerName");
-        }
+        summonerName = StaticData.summonerName;
 
-        viewName.setText(summonerName);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                System.out.println("PROBANDO");
+
+                Intent i = new Intent(HistoryActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        toolbar.setTitle(summonerName);
 
 
         Thread thread2 = new Thread(new Runnable() {
