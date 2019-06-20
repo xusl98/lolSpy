@@ -17,6 +17,7 @@ import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.api.endpoints.champion.dto.ChampionInfo;
 import net.rithms.riot.api.endpoints.champion_mastery.dto.ChampionMastery;
+import net.rithms.riot.api.endpoints.league.dto.LeagueEntry;
 import net.rithms.riot.api.endpoints.league.dto.LeaguePosition;
 import net.rithms.riot.api.endpoints.league.methods.GetLeaguePositionsBySummonerId;
 import net.rithms.riot.api.endpoints.match.dto.Match;
@@ -104,8 +105,9 @@ public class MainActivity extends AppCompatActivity {
                     adapterInstructions(myMasteries);
                     System.out.println("PRUEBA");
                     setTextView(viewLvl, "Level: " + String.valueOf(summoner.getSummonerLevel()));
-                    Set<LeaguePosition> rank = api.getLeaguePositionsBySummonerId(Platform.EUW, summoner.getId());
-                    for (LeaguePosition l : rank){
+                    System.out.println("PRUEBA");
+                    Set<LeagueEntry> rank  = api.getLeagueEntriesBySummonerId(Platform.EUW, summoner.getId());
+                    for (LeagueEntry l : rank){
                         if (l.getQueueType().equals("RANKED_SOLO_5x5")){
                             viewRank.setText(l.getTier() + " " + l.getRank() + " " + l.getLeaguePoints() + "LP");
                         }
