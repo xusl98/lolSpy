@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentBack = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intentBack);
+                finish();
             }
         });
 
@@ -128,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent historyIntent = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(historyIntent);
+                finish();
             }
         });
 

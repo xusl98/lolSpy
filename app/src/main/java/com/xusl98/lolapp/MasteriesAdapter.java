@@ -185,7 +185,7 @@ public class MasteriesAdapter extends RecyclerView.Adapter {
             {
                 put(266, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Aatrox.png");
                 put(103, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Ahri.png");
-                put(84, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Akali.png");
+                put(84, "http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/Akali.png");
                 put(12, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Alistar.png");
                 put(32, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Amumu.png");
                 put(34, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Anivia.png");
@@ -258,7 +258,7 @@ public class MasteriesAdapter extends RecyclerView.Adapter {
                 put(11, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/MasterYi.png");
                 put(21, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/MissFortune.png");
                 put(62, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/MonkeyKing.png");
-                put(82, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Mordekaiser.png");
+                put(82, "http://ddragon.leagueoflegends.com/cdn/9.12.1/img/champion/Mordekaiser.png");
                 put(25, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Morgana.png");
                 put(267, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Nami.png");
                 put(75, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Nasus.png");

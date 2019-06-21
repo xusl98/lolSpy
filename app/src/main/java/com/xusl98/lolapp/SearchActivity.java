@@ -1,6 +1,8 @@
 package com.xusl98.lolapp;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.VideoView;
 
 import net.rithms.riot.constant.Platform;
 
@@ -48,12 +51,25 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        VideoView videoview = (VideoView) findViewById(R.id.videoView);
+        videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.lol_video);
+        videoview.setVideoURI(uri);
+        videoview.start();
+
         btnSpy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SearchActivity.this, MainActivity.class);
                 StaticData.summonerName = input.getEditText().getText().toString();
                 startActivity(i);
+                finish();
             }
         });
     }

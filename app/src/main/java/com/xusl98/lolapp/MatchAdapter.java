@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class MatchAdapter extends RecyclerView.Adapter {
             {
                 put(266, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Aatrox.png");
                 put(103, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Ahri.png");
-                put(84, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Akali.png");
+                put(84, "http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/Akali.png");
                 put(12, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Alistar.png");
                 put(32, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Amumu.png");
                 put(34, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Anivia.png");
@@ -111,7 +112,7 @@ public class MatchAdapter extends RecyclerView.Adapter {
                 put(11, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/MasterYi.png");
                 put(21, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/MissFortune.png");
                 put(62, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/MonkeyKing.png");
-                put(82, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Mordekaiser.png");
+                put(82, "http://ddragon.leagueoflegends.com/cdn/9.12.1/img/champion/Mordekaiser.png");
                 put(25, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Morgana.png");
                 put(267, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Nami.png");
                 put(75, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Nasus.png");
@@ -502,6 +503,7 @@ public class MatchAdapter extends RecyclerView.Adapter {
         holder.score.setText(match.getKills() + "/" + match.getDeaths() + "/" + match.getAssists());
         holder.queue.setText(getQueueName(match.getQueue()));
 
+
         try {
             final String imageUrl = getChampImg(match.getChampId());
             final String imageSum1Url = getSumImg(match.getSummoner1());
@@ -520,8 +522,8 @@ public class MatchAdapter extends RecyclerView.Adapter {
                 public void run() {
                     try {
 
-                        if (win == true){
-//                            holder.background.setBackgroundColor(Color.GREEN);
+                        if (win == true) {
+                            holder.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
                         } else {
                             holder.background.setBackgroundColor(Color.RED);
                         }
@@ -535,18 +537,26 @@ public class MatchAdapter extends RecyclerView.Adapter {
                         Bitmap bitmapSum2 = BitmapFactory.decodeStream((InputStream) new URL(imageSum2Url).getContent());
                         holder.sum2.setImageBitmap(bitmapSum2);
                         //ITEMS
-                        Bitmap bitmapObj1 = BitmapFactory.decodeStream((InputStream) new URL(imageObj1Url).getContent());
-                        holder.item1.setImageBitmap(bitmapObj1);
-                        Bitmap bitmapObj2 = BitmapFactory.decodeStream((InputStream) new URL(imageObj2Url).getContent());
-                        holder.item2.setImageBitmap(bitmapObj2);
-                        Bitmap bitmapObj3 = BitmapFactory.decodeStream((InputStream) new URL(imageObj3Url).getContent());
-                        holder.item3.setImageBitmap(bitmapObj3);
-                        Bitmap bitmapObj4 = BitmapFactory.decodeStream((InputStream) new URL(imageObj4Url).getContent());
-                        holder.item4.setImageBitmap(bitmapObj4);
-                        Bitmap bitmapObj5 = BitmapFactory.decodeStream((InputStream) new URL(imageObj5Url).getContent());
-                        holder.item5.setImageBitmap(bitmapObj5);
-                        Bitmap bitmapObj6 = BitmapFactory.decodeStream((InputStream) new URL(imageObj6Url).getContent());
-                        holder.item6.setImageBitmap(bitmapObj6);
+                        if (imageObj1Url.length() > 1) {
+                            Bitmap bitmapObj1 = BitmapFactory.decodeStream((InputStream) new URL(imageObj1Url).getContent());
+                            holder.item1.setImageBitmap(bitmapObj1);
+                        }
+                        if (imageObj2Url.length() > 1) {
+                            Bitmap bitmapObj2 = BitmapFactory.decodeStream((InputStream) new URL(imageObj2Url).getContent());
+                            holder.item2.setImageBitmap(bitmapObj2);
+                        }if (imageObj3Url.length() > 1) {
+                            Bitmap bitmapObj3 = BitmapFactory.decodeStream((InputStream) new URL(imageObj3Url).getContent());
+                            holder.item3.setImageBitmap(bitmapObj3);
+                        }if (imageObj4Url.length() > 1) {
+                            Bitmap bitmapObj4 = BitmapFactory.decodeStream((InputStream) new URL(imageObj4Url).getContent());
+                            holder.item4.setImageBitmap(bitmapObj4);
+                        }if (imageObj5Url.length() > 1) {
+                            Bitmap bitmapObj5 = BitmapFactory.decodeStream((InputStream) new URL(imageObj5Url).getContent());
+                            holder.item5.setImageBitmap(bitmapObj5);
+                        }if (imageObj6Url.length() > 1) {
+                            Bitmap bitmapObj6 = BitmapFactory.decodeStream((InputStream) new URL(imageObj6Url).getContent());
+                            holder.item6.setImageBitmap(bitmapObj6);
+                        }
 
 
                     } catch (Exception e) {

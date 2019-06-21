@@ -60,16 +60,16 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                System.out.println("PROBANDO");
-
                 Intent i = new Intent(HistoryActivity.this, MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         toolbar.setTitle(summonerName);
 
 
 
-        Thread thread = new Thread(new Runnable() {
+        Thread thread3 = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -79,13 +79,13 @@ public class HistoryActivity extends AppCompatActivity {
 
                     // PARTICIPANT FOR MATCH
                     List<MatchReference> matches = api.getMatchListByAccountId(StaticData.platform, summoner.getAccountId()).getMatches();
-                    ArrayList<MatchReference> only10 = new ArrayList<MatchReference>();
+                    ArrayList<MatchReference> only20 = new ArrayList<MatchReference>();
                     System.out.println("aqui1");
-                    for (int i = 0; i < 10; i++) {
-                        only10.add(matches.get(i));
+                    for (int i = 0; i < 20; i++) {
+                        only20.add(matches.get(i));
                     }
                     ArrayList<Match> matches2 = new ArrayList<Match>();
-                    for (MatchReference mm : only10) {
+                    for (MatchReference mm : only20) {
                         matches2.add(api.getMatch(StaticData.platform, mm.getGameId()));
                     }
                     ArrayList<com.xusl98.lolapp.Match> myMatches = new ArrayList<com.xusl98.lolapp.Match>();
@@ -106,7 +106,7 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        thread.start();
+        thread3.start();
 
     }
 
