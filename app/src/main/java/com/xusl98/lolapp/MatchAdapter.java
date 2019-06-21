@@ -3,12 +3,14 @@ package com.xusl98.lolapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -510,12 +512,20 @@ public class MatchAdapter extends RecyclerView.Adapter {
             final String imageObj4Url = getObjImg(match.getItem4());
             final String imageObj5Url = getObjImg(match.getItem5());
             final String imageObj6Url = getObjImg(match.getItem6());
+            final boolean win = match.getMatchResult();
 
             Thread thread = new Thread(new Runnable() {
 
                 @Override
                 public void run() {
                     try {
+
+                        if (win == true){
+//                            holder.background.setBackgroundColor(Color.GREEN);
+                        } else {
+                            holder.background.setBackgroundColor(Color.RED);
+                        }
+
                         //CHAMP IMAGE
                         Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(imageUrl).getContent());
                         holder.imageChamp.setImageBitmap(bitmap);
@@ -537,6 +547,8 @@ public class MatchAdapter extends RecyclerView.Adapter {
                         holder.item5.setImageBitmap(bitmapObj5);
                         Bitmap bitmapObj6 = BitmapFactory.decodeStream((InputStream) new URL(imageObj6Url).getContent());
                         holder.item6.setImageBitmap(bitmapObj6);
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -570,6 +582,8 @@ public class MatchAdapter extends RecyclerView.Adapter {
         TextView score;
         TextView queue;
 
+        RelativeLayout background;
+
         public Holder(@NonNull View itemView) {
             super(itemView);
             imageChamp = (ImageView) itemView.findViewById(R.id.image_champ);
@@ -583,6 +597,7 @@ public class MatchAdapter extends RecyclerView.Adapter {
             item6 = (ImageView) itemView.findViewById(R.id.image_item6);
             score = (TextView) itemView.findViewById(R.id.score);
             queue = (TextView) itemView.findViewById(R.id.field_queue);
+            background = (RelativeLayout) itemView.findViewById(R.id.back_match);
         }
     }
 
