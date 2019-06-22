@@ -377,7 +377,6 @@ public class MasteriesAdapter extends RecyclerView.Adapter {
 
     public String getChampName(final int champId) {
 
-        //create a map with all champ names and ids to translate the id we get to the name so that the holder can show it
         Set<Integer> mapKeys = mapChampions.keySet();
         for (int key : mapKeys) {
             if (champId == key) {

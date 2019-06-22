@@ -11,4 +11,14 @@
         app:showAsAction="never"
         android:title="NA">
     </item>
+    <item
+        android:id="@+id/action_OCE"
+        app:showAsAction="never"
+        android:title="OCE">
+    </item>
+    <item
+        android:id="@+id/action_RU"
+        app:showAsAction="never"
+        android:title="RU">
+    </item>
 </menu>

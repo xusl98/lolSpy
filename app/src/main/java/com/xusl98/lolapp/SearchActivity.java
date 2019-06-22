@@ -7,8 +7,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
 
         toolbar.inflateMenu(R.menu.platf_menu);
 
+        //TODO add all the servers
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -46,6 +45,14 @@ public class SearchActivity extends AppCompatActivity {
                 else if(menuItem.getItemId()== R.id.action_NA)
                 {
                     StaticData.platform = Platform.NA;
+                }
+                else if(menuItem.getItemId()== R.id.action_NA)
+                {
+                    StaticData.platform = Platform.OCE;
+                }
+                else if(menuItem.getItemId()== R.id.action_RU)
+                {
+                    StaticData.platform = Platform.RU;
                 }
                 return false;
             }
