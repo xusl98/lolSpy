@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -348,27 +349,9 @@ public class MasteriesAdapter extends RecyclerView.Adapter {
         holder.champName.setText(getChampName(mastery.getChampId()));
         holder.champPoints.setText(String.valueOf(mastery.getMastPoints()));
 
-        try {
             final String imageUrl = getChampImg(mastery.getChampId());
+        Glide.with(StaticData.mainContext).load(imageUrl).into(holder.champPhoto);
 
-            Thread thread = new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    try  {
-                        Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(imageUrl).getContent());
-                        holder.champPhoto.setImageBitmap(bitmap);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            thread.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 

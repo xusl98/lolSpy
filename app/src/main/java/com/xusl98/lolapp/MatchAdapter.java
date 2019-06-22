@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class MatchAdapter extends RecyclerView.Adapter {
     private Map<Integer, String> mapSums;
     private Map<Integer, String> mapObj;
     private Map<Integer, String> mapQueue;
+
 
     public MatchAdapter(Context context, ArrayList<Match> listMatches) {
         this.context = context;
@@ -516,60 +519,56 @@ public class MatchAdapter extends RecyclerView.Adapter {
             final String imageObj6Url = getObjImg(match.getItem6());
             final boolean win = match.getMatchResult();
 
-            Thread thread = new Thread(new Runnable() {
+            try {
+                        try {
 
-                @Override
-                public void run() {
-                    try {
+                            if (win == true) {
+                                holder.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
+                            } else {
+                                holder.background.setBackgroundColor(Color.RED);
+                            }
 
-                        if (win == true) {
-                            holder.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
-                        } else {
-                            holder.background.setBackgroundColor(Color.RED);
+                            //CHAMP IMAGE
+                            Glide.with(StaticData.historyContext).load(imageUrl).into(holder.imageChamp);
+                            //SUMS
+                            Glide.with(StaticData.historyContext).load(imageSum1Url).into(holder.sum1);
+                            Glide.with(StaticData.historyContext).load(imageSum2Url).into(holder.sum2);
+                            //ITEMS
+                            if (imageObj1Url.length() > 1) {
+                                Glide.with(StaticData.historyContext).load(imageObj1Url).into(holder.item1);
+
+                            }
+                            if (imageObj2Url.length() > 1) {
+                                Glide.with(StaticData.historyContext).load(imageObj2Url).into(holder.item2);
+                            }
+                            if (imageObj3Url.length() > 1) {
+                                Glide.with(StaticData.historyContext).load(imageObj3Url).into(holder.item3);
+                            }
+                            if (imageObj4Url.length() > 1) {
+                                Glide.with(StaticData.historyContext).load(imageObj4Url).into(holder.item4);
+                            }
+                            if (imageObj5Url.length() > 1) {
+                                Glide.with(StaticData.historyContext).load(imageObj5Url).into(holder.item5);
+                            }
+                            if (imageObj6Url.length() > 1) {
+                                Glide.with(StaticData.historyContext).load(imageObj6Url).into(holder.item6);
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
 
-                        //CHAMP IMAGE
-                        Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(imageUrl).getContent());
-                        holder.imageChamp.setImageBitmap(bitmap);
-                        //SUMS
-                        Bitmap bitmapSum1 = BitmapFactory.decodeStream((InputStream) new URL(imageSum1Url).getContent());
-                        holder.sum1.setImageBitmap(bitmapSum1);
-                        Bitmap bitmapSum2 = BitmapFactory.decodeStream((InputStream) new URL(imageSum2Url).getContent());
-                        holder.sum2.setImageBitmap(bitmapSum2);
-                        //ITEMS
-                        if (imageObj1Url.length() > 1) {
-                            Bitmap bitmapObj1 = BitmapFactory.decodeStream((InputStream) new URL(imageObj1Url).getContent());
-                            holder.item1.setImageBitmap(bitmapObj1);
-                        }
-                        if (imageObj2Url.length() > 1) {
-                            Bitmap bitmapObj2 = BitmapFactory.decodeStream((InputStream) new URL(imageObj2Url).getContent());
-                            holder.item2.setImageBitmap(bitmapObj2);
-                        }if (imageObj3Url.length() > 1) {
-                            Bitmap bitmapObj3 = BitmapFactory.decodeStream((InputStream) new URL(imageObj3Url).getContent());
-                            holder.item3.setImageBitmap(bitmapObj3);
-                        }if (imageObj4Url.length() > 1) {
-                            Bitmap bitmapObj4 = BitmapFactory.decodeStream((InputStream) new URL(imageObj4Url).getContent());
-                            holder.item4.setImageBitmap(bitmapObj4);
-                        }if (imageObj5Url.length() > 1) {
-                            Bitmap bitmapObj5 = BitmapFactory.decodeStream((InputStream) new URL(imageObj5Url).getContent());
-                            holder.item5.setImageBitmap(bitmapObj5);
-                        }if (imageObj6Url.length() > 1) {
-                            Bitmap bitmapObj6 = BitmapFactory.decodeStream((InputStream) new URL(imageObj6Url).getContent());
-                            holder.item6.setImageBitmap(bitmapObj6);
-                        }
 
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            thread.start();
-
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
     }
 

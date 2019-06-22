@@ -41,6 +41,8 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
 
+        StaticData.historyContext = this;
+
         mContext = this;
 
         recyclerView = findViewById(R.id.recyclerViewHistory);
@@ -80,7 +82,6 @@ public class HistoryActivity extends AppCompatActivity {
                     // PARTICIPANT FOR MATCH
                     List<MatchReference> matches = api.getMatchListByAccountId(StaticData.platform, summoner.getAccountId()).getMatches();
                     ArrayList<MatchReference> only20 = new ArrayList<MatchReference>();
-                    System.out.println("aqui1");
                     for (int i = 0; i < 20; i++) {
                         only20.add(matches.get(i));
                     }
@@ -108,7 +109,11 @@ public class HistoryActivity extends AppCompatActivity {
 
         thread3.start();
 
+
+
     }
+
+
 
     private void adapterInstructions(final ArrayList<com.xusl98.lolapp.Match> myMatches) {
         runOnUiThread(new Runnable() {

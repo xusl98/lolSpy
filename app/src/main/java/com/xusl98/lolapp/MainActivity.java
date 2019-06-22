@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = this;
 
+        StaticData.mainContext = this;
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     adapterInstructions(myMasteries);
-                    System.out.println("PRUEBA");
                     setTextView(viewLvl, "Level: " + String.valueOf(summoner.getSummonerLevel()));
-                    System.out.println("PRUEBA");
                     Set<LeagueEntry> rank  = api.getLeagueEntriesBySummonerId(StaticData.platform, summoner.getId());
                     for (LeagueEntry l : rank){
                         if (l.getQueueType().equals("RANKED_SOLO_5x5")){
