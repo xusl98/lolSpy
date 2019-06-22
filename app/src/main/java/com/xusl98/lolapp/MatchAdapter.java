@@ -1,6 +1,7 @@
 package com.xusl98.lolapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -519,51 +521,53 @@ public class MatchAdapter extends RecyclerView.Adapter {
             final String imageObj6Url = getObjImg(match.getItem6());
             final boolean win = match.getMatchResult();
 
+            holder.background.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent gameIntent = new Intent(StaticData.historyContext, GameActivity.class);
+                    context.startActivity(gameIntent);
+                }
+            });
+
             try {
-                        try {
 
-                            if (win == true) {
-                                holder.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
-                            } else {
-                                holder.background.setBackgroundColor(Color.RED);
-                            }
+                if (win == true) {
+                    holder.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
+                } else {
+                    holder.background.setBackgroundColor(Color.RED);
+                }
 
-                            //CHAMP IMAGE
-                            Glide.with(StaticData.historyContext).load(imageUrl).into(holder.imageChamp);
-                            //SUMS
-                            Glide.with(StaticData.historyContext).load(imageSum1Url).into(holder.sum1);
-                            Glide.with(StaticData.historyContext).load(imageSum2Url).into(holder.sum2);
-                            //ITEMS
-                            if (imageObj1Url.length() > 1) {
-                                Glide.with(StaticData.historyContext).load(imageObj1Url).into(holder.item1);
+                //CHAMP IMAGE
+                Glide.with(StaticData.historyContext).load(imageUrl).into(holder.imageChamp);
+                //SUMS
+                Glide.with(StaticData.historyContext).load(imageSum1Url).into(holder.sum1);
+                Glide.with(StaticData.historyContext).load(imageSum2Url).into(holder.sum2);
+                //ITEMS
+                if (imageObj1Url.length() > 1) {
+                    Glide.with(StaticData.historyContext).load(imageObj1Url).into(holder.item1);
 
-                            }
-                            if (imageObj2Url.length() > 1) {
-                                Glide.with(StaticData.historyContext).load(imageObj2Url).into(holder.item2);
-                            }
-                            if (imageObj3Url.length() > 1) {
-                                Glide.with(StaticData.historyContext).load(imageObj3Url).into(holder.item3);
-                            }
-                            if (imageObj4Url.length() > 1) {
-                                Glide.with(StaticData.historyContext).load(imageObj4Url).into(holder.item4);
-                            }
-                            if (imageObj5Url.length() > 1) {
-                                Glide.with(StaticData.historyContext).load(imageObj5Url).into(holder.item5);
-                            }
-                            if (imageObj6Url.length() > 1) {
-                                Glide.with(StaticData.historyContext).load(imageObj6Url).into(holder.item6);
-                            }
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
+                }
+                if (imageObj2Url.length() > 1) {
+                    Glide.with(StaticData.historyContext).load(imageObj2Url).into(holder.item2);
+                }
+                if (imageObj3Url.length() > 1) {
+                    Glide.with(StaticData.historyContext).load(imageObj3Url).into(holder.item3);
+                }
+                if (imageObj4Url.length() > 1) {
+                    Glide.with(StaticData.historyContext).load(imageObj4Url).into(holder.item4);
+                }
+                if (imageObj5Url.length() > 1) {
+                    Glide.with(StaticData.historyContext).load(imageObj5Url).into(holder.item5);
+                }
+                if (imageObj6Url.length() > 1) {
+                    Glide.with(StaticData.historyContext).load(imageObj6Url).into(holder.item6);
+                }
 
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
