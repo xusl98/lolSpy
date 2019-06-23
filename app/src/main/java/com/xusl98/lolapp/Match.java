@@ -1,5 +1,7 @@
 package com.xusl98.lolapp;
 
+import net.rithms.riot.api.endpoints.match.dto.MatchReference;
+
 public class Match {
 
     private int champId;
@@ -17,7 +19,10 @@ public class Match {
     private int queue;
     private boolean matchResult;
 
-    public Match(int champId, int item1, int item2, int item3, int item4, int item5, int item6, int summoner1, int summoner2, int kills, int deaths, int assists, boolean matchResult, int queue) {
+    private net.rithms.riot.api.endpoints.match.dto.Match match;
+    private MatchReference matchReference;
+
+    public Match(int champId, int item1, int item2, int item3, int item4, int item5, int item6, int summoner1, int summoner2, int kills, int deaths, int assists, boolean matchResult, int queue, net.rithms.riot.api.endpoints.match.dto.Match match, MatchReference matchReference) {
         this.champId = champId;
         this.item1 = item1;
         this.item2 = item2;
@@ -32,6 +37,21 @@ public class Match {
         this.assists = assists;
         this.matchResult = matchResult;
         this.queue = queue;
+
+        this.match = match;
+        this.matchReference = matchReference;
+    }
+
+    public boolean isMatchResult() {
+        return matchResult;
+    }
+
+    public net.rithms.riot.api.endpoints.match.dto.Match getMatch() {
+        return match;
+    }
+
+    public MatchReference getMatchReference() {
+        return matchReference;
     }
 
     public int getQueue() {

@@ -1,12 +1,7 @@
 package com.xusl98.lolapp;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,32 +9,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import net.rithms.riot.api.endpoints.match.dto.MatchReference;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class MatchAdapter extends RecyclerView.Adapter {
+public class ParticipantAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private ArrayList<Match> listMatches;
+    private ArrayList<Participant> listParticipants;
+
     private Map<Integer, String> mapImages;
     private Map<Integer, String> mapSums;
     private Map<Integer, String> mapObj;
-    private Map<Integer, String> mapQueue;
 
-
-    public MatchAdapter(Context context, ArrayList<Match> listMatches) {
+    public ParticipantAdapter(Context context, ArrayList<Participant> listParticipants) {
         this.context = context;
-        this.listMatches = listMatches;
+        this.listParticipants = listParticipants;
 
         // <editor-fold defaultstate="collapsed" desc="Mapa de imagenes de Campeones">
         mapImages = new HashMap<Integer, String>() {
@@ -465,129 +455,67 @@ public class MatchAdapter extends RecyclerView.Adapter {
             }
         };
         //</editor-fold>
-
-        // <editor-fold defaultstate="collapsed" desc="Mapa de nombres de colas">
-        mapQueue = new HashMap<Integer, String>() {
-            {
-                put(98, "6v6 Hexakill");
-                put(100, "5v5 ARAM");
-                put(310, "Nemesis");
-                put(313, "Black Market Brawlers");
-                put(400, "5v5 Draft Pick");
-                put(420, "5v5 Ranked Solo");
-                put(430, "5v5 Blind Pick");
-                put(440, "5v5 Ranked Flex");
-                put(450, "5v5 ARAM");
-                put(460, "3v3 Blind Pick");
-                put(470, "3v3 Ranked Flex");
-                put(600, "Blood Hunt Assassin");
-                put(610, "Dark Star: Singularity");
-                put(700, "Clash");
-                put(800, "Co-op vs. AI Intermediate Bo");
-                put(810, "Co-op vs. AI Intro Bot");
-                put(820, "Co-op vs. AI Beginner Bot");
-                put(830, "Co-op vs. AI Intro Bot");
-                put(840, "Co-op vs. AI Beginner Bot ");
-                put(850, "Co-op vs. AI Intermediate Bot");
-                put(900, "ARURF");
-                //TODO finish the map with all queue types
-            }
-        };
-        //</editor-fold>
     }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View contentView = LayoutInflater.from(context).inflate(R.layout.match, null);
-        return new Holder(contentView);
+        View contentView = LayoutInflater.from(context).inflate(R.layout.participant, null);
+        return new ParticipantAdapter.Holder(contentView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        Match match = listMatches.get(position);
-        final Holder holder = (Holder) viewHolder;
-        holder.score.setText(match.getKills() + "/" + match.getDeaths() + "/" + match.getAssists());
-        holder.queue.setText(getQueueName(match.getQueue()));
+        Participant participant = listParticipants.get(position);
+        final ParticipantAdapter.Holder holder = (ParticipantAdapter.Holder) viewHolder;
 
 
-        try {
-            final String imageUrl = getChampImg(match.getChampId());
-            final String imageSum1Url = getSumImg(match.getSummoner1());
-            final String imageSum2Url = getSumImg(match.getSummoner2());
-            final String imageObj1Url = getObjImg(match.getItem1());
-            final String imageObj2Url = getObjImg(match.getItem2());
-            final String imageObj3Url = getObjImg(match.getItem3());
-            final String imageObj4Url = getObjImg(match.getItem4());
-            final String imageObj5Url = getObjImg(match.getItem5());
-            final String imageObj6Url = getObjImg(match.getItem6());
-            final boolean win = match.getMatchResult();
+        holder.name.setText(participant.getSummonerName());
+        holder.rank.setText(participant.getRank());
+        holder.score.setText(participant.getKills() + "/" + participant.getDeaths() + "/" + participant.getAssists());
 
-            final net.rithms.riot.api.endpoints.match.dto.Match matchSend = match.getMatch();
-            final MatchReference matchReferenceSend = match.getMatchReference();
+        String champUrl = getChampImg(participant.getChampId());
+        String imageSum1Url = getSumImg(participant.getSum1());
+        String imageSum2Url = getSumImg(participant.getSum2());
+        String imageObj1Url = getObjImg(participant.getItem1());
+        String imageObj2Url = getObjImg(participant.getItem2());
+        String imageObj3Url = getObjImg(participant.getItem3());
+        String imageObj4Url = getObjImg(participant.getItem4());
+        String imageObj5Url = getObjImg(participant.getItem5());
+        String imageObj6Url = getObjImg(participant.getItem6());
 
+        Glide.with(StaticData.gameContext).load(champUrl).into(holder.imageChamp);
+        Glide.with(StaticData.gameContext).load(imageSum1Url).into(holder.sum1);
+        Glide.with(StaticData.gameContext).load(imageSum2Url).into(holder.sum2);
 
-
-            holder.background.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent gameIntent = new Intent(StaticData.historyContext, GameActivity.class);
-                    context.startActivity(gameIntent);
-                    StaticData.match = matchSend;
-                    StaticData.matchReference = matchReferenceSend;
-                }
-            });
-
-            try {
-
-                if (win == true) {
-                    holder.background.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
-                } else {
-                    holder.background.setBackgroundColor(Color.RED);
-                }
-
-                //CHAMP IMAGE
-                Glide.with(StaticData.historyContext).load(imageUrl).into(holder.imageChamp);
-                //SUMS
-                Glide.with(StaticData.historyContext).load(imageSum1Url).into(holder.sum1);
-                Glide.with(StaticData.historyContext).load(imageSum2Url).into(holder.sum2);
-                //ITEMS
-                if (imageObj1Url.length() > 1) {
-                    Glide.with(StaticData.historyContext).load(imageObj1Url).into(holder.item1);
-
-                }
-                if (imageObj2Url.length() > 1) {
-                    Glide.with(StaticData.historyContext).load(imageObj2Url).into(holder.item2);
-                }
-                if (imageObj3Url.length() > 1) {
-                    Glide.with(StaticData.historyContext).load(imageObj3Url).into(holder.item3);
-                }
-                if (imageObj4Url.length() > 1) {
-                    Glide.with(StaticData.historyContext).load(imageObj4Url).into(holder.item4);
-                }
-                if (imageObj5Url.length() > 1) {
-                    Glide.with(StaticData.historyContext).load(imageObj5Url).into(holder.item5);
-                }
-                if (imageObj6Url.length() > 1) {
-                    Glide.with(StaticData.historyContext).load(imageObj6Url).into(holder.item6);
-                }
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        //ITEMS
+        if (imageObj1Url.length() > 1) {
+            Glide.with(StaticData.gameContext).load(imageObj1Url).into(holder.item1);
         }
+        if (imageObj2Url.length() > 1) {
+            Glide.with(StaticData.gameContext).load(imageObj2Url).into(holder.item2);
+        }
+        if (imageObj3Url.length() > 1) {
+            Glide.with(StaticData.gameContext).load(imageObj3Url).into(holder.item3);
+        }
+        if (imageObj4Url.length() > 1) {
+            Glide.with(StaticData.gameContext).load(imageObj4Url).into(holder.item4);
+        }
+        if (imageObj5Url.length() > 1) {
+            Glide.with(StaticData.gameContext).load(imageObj5Url).into(holder.item5);
+        }
+        if (imageObj6Url.length() > 1) {
+            Glide.with(StaticData.gameContext).load(imageObj6Url).into(holder.item6);
+        }
+
+
+
 
 
     }
 
     @Override
     public int getItemCount() {
-        return listMatches.size();
+        return listParticipants.size();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
@@ -602,24 +530,25 @@ public class MatchAdapter extends RecyclerView.Adapter {
         ImageView item5;
         ImageView item6;
         TextView score;
-        TextView queue;
+        TextView name;
+        TextView rank;
 
-        RelativeLayout background;
+
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             imageChamp = (ImageView) itemView.findViewById(R.id.image_champ);
-            sum1 = (ImageView) itemView.findViewById(R.id.image_sum1);
-            sum2 = (ImageView) itemView.findViewById(R.id.image_sum2);
-            item1 = (ImageView) itemView.findViewById(R.id.image_item1);
-            item2 = (ImageView) itemView.findViewById(R.id.image_item2);
-            item3 = (ImageView) itemView.findViewById(R.id.image_item3);
-            item4 = (ImageView) itemView.findViewById(R.id.image_item4);
-            item5 = (ImageView) itemView.findViewById(R.id.image_item5);
-            item6 = (ImageView) itemView.findViewById(R.id.image_item6);
-            score = (TextView) itemView.findViewById(R.id.score);
-            queue = (TextView) itemView.findViewById(R.id.field_queue);
-            background = (RelativeLayout) itemView.findViewById(R.id.back_match);
+            sum1 = (ImageView) itemView.findViewById(R.id.sum1);
+            sum2 = (ImageView) itemView.findViewById(R.id.sum2);
+            item1 = (ImageView) itemView.findViewById(R.id.img_item1);
+            item2 = (ImageView) itemView.findViewById(R.id.img_item2);
+            item3 = (ImageView) itemView.findViewById(R.id.img_item3);
+            item4 = (ImageView) itemView.findViewById(R.id.img_item4);
+            item5 = (ImageView) itemView.findViewById(R.id.img_item5);
+            item6 = (ImageView) itemView.findViewById(R.id.img_item6);
+            score = (TextView) itemView.findViewById(R.id.view_kda);
+            name = (TextView) itemView.findViewById(R.id.view_nombre);
+            rank = (TextView) itemView.findViewById(R.id.view_rank);
         }
     }
 
@@ -662,16 +591,16 @@ public class MatchAdapter extends RecyclerView.Adapter {
         return "";
     }
 
-    public String getQueueName(final int queueId) {
-
-        Set<Integer> mapKeys = mapQueue.keySet();
-        for (int key : mapKeys) {
-            if (queueId == key) {
-                String url = mapQueue.get(key);
-                return url;
-            }
-        }
-
-        return "";
-    }
+//    public String getQueueName(final int queueId) {
+//
+//        Set<Integer> mapKeys = mapQueue.keySet();
+//        for (int key : mapKeys) {
+//            if (queueId == key) {
+//                String url = mapQueue.get(key);
+//                return url;
+//            }
+//        }
+//
+//        return "";
+//    }
 }

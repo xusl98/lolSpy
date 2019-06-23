@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameActivity">
@@ -49,11 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/view_red_team"></android.support.v7.widget.RecyclerView>
-
-
-
-
-
 
 
 </android.support.constraint.ConstraintLayout>

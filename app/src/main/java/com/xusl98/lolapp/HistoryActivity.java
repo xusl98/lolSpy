@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +52,8 @@ public class HistoryActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbarHistory);
 
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+
 
         final ApiConfig config = new ApiConfig().setKey("RGAPI-e24ac602-c50b-4b49-b9e3-09ac98d31e07");
         final RiotApi api = new RiotApi(config);
@@ -93,8 +96,7 @@ public class HistoryActivity extends AppCompatActivity {
                         Match thisMatch = matches2.get(i);
                         Participant p = thisMatch.getParticipantByAccountId(summoner.getAccountId());
                         ParticipantStats stats = p.getStats();
-
-                        myMatches.add(new com.xusl98.lolapp.Match(p.getChampionId(), stats.getItem0(), stats.getItem1(), stats.getItem2(), stats.getItem3(), stats.getItem4(), stats.getItem5(), p.getSpell1Id(), p.getSpell2Id(), stats.getKills(), stats.getDeaths(), stats.getAssists(), stats.isWin(), thisMatch.getQueueId()));
+                        myMatches.add(new com.xusl98.lolapp.Match(p.getChampionId(), stats.getItem0(), stats.getItem1(), stats.getItem2(), stats.getItem3(), stats.getItem4(), stats.getItem5(), p.getSpell1Id(), p.getSpell2Id(), stats.getKills(), stats.getDeaths(), stats.getAssists(), stats.isWin(), thisMatch.getQueueId(), matches2.get(i), only20.get(i)));
                     }
 
                     adapterInstructions(myMatches);

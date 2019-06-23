@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="16dp"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="0dp"
     >
 
     <android.support.v7.widget.CardView
@@ -41,26 +41,32 @@
 
             <TextView
                 android:id="@+id/view_rank"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="25dp"
+                android:layout_height="17dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="4dp"
-                android:layout_toRightOf="@+id/sum1"/>
+                android:layout_toRightOf="@+id/sum1"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/view_nombre"
-                android:layout_width="90dp"
-                android:layout_height="15dp"
-                android:layout_toRightOf="@+id/view_rank"
+                android:layout_width="140dp"
+                android:layout_height="17dp"
                 android:layout_marginLeft="6dp"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="2dp"
+                android:layout_toRightOf="@+id/view_rank"
+                android:textColor="@android:color/white" />
+
             <TextView
                 android:id="@+id/view_kda"
                 android:layout_width="70dp"
-                android:layout_height="15dp"
-                android:layout_toRightOf="@+id/sum2"
+                android:layout_height="17dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toRightOf="@+id/sum2"
+                android:textColor="@android:color/white" />
 
             <ImageView
                 android:id="@+id/img_item1"
