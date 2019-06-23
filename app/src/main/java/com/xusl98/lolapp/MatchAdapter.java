@@ -45,6 +45,7 @@ public class MatchAdapter extends RecyclerView.Adapter {
         mapImages = new HashMap<Integer, String>() {
             {
                 put(266, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Aatrox.png");
+                put(518, "http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/Neeko.png");
                 put(103, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Ahri.png");
                 put(84, "http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/Akali.png");
                 put(12, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Alistar.png");

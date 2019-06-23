@@ -17,4 +17,7 @@ public class StaticData {
     public static Match match;
     public static MatchReference matchReference;
 
+    public static boolean blue;
+    public static boolean red;
+
 }

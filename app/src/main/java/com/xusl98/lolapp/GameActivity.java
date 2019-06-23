@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import net.rithms.riot.api.ApiConfig;
 import net.rithms.riot.api.RiotApi;
@@ -92,12 +93,12 @@ public class GameActivity extends AppCompatActivity {
                         int sum1 = participant.getSpell1Id();
                         int sum2 = participant.getSpell2Id();
                         //items
-                        int item1 = participantStats.getItem1();
-                        int item2 = participantStats.getItem2();
-                        int item3 = participantStats.getItem3();
-                        int item4 = participantStats.getItem4();
-                        int item5 = participantStats.getItem5();
-                        int item6 = participantStats.getItem6();
+                        int item1 = participantStats.getItem0();
+                        int item2 = participantStats.getItem1();
+                        int item3 = participantStats.getItem2();
+                        int item4 = participantStats.getItem3();
+                        int item5 = participantStats.getItem4();
+                        int item6 = participantStats.getItem5();
                         //champ
                         int champ = participant.getChampionId();
                         //teamID
@@ -129,9 +130,19 @@ public class GameActivity extends AppCompatActivity {
                             }
                         }
 
+                        TextView blue = (TextView) findViewById(R.id.view_blue_team);
+                        TextView red = (TextView) findViewById(R.id.view_red_team);
                         if (teamId == 100) {
+                            if (participantStats.isWin()){
+                                blue.setText("Blue Team Wins");
+                                red.setText("Red Team Loses");
+                            }
                             myParticipantsBlue.add(new com.xusl98.lolapp.Participant(summonerName, sum1, sum2, item1, item2, item3, item4, item5, item6, champ, teamId, rankString, participantStats.getKills(), participantStats.getDeaths(), participantStats.getAssists()));
                         } else {
+                            if (participantStats.isWin()){
+                                blue.setText("Blue Team Loses");
+                                red.setText("Red Team Wins");
+                            }
                             myParticipantsRed.add(new com.xusl98.lolapp.Participant(summonerName, sum1, sum2, item1, item2, item3, item4, item5, item6, champ, teamId, rankString, participantStats.getKills(), participantStats.getDeaths(), participantStats.getAssists()));
                         }
 

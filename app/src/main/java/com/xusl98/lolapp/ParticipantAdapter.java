@@ -177,6 +177,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter {
                 put(26, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Zilean.png");
                 put(142, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Zoe.png");
                 put(143, "http://ddragon.leagueoflegends.com/cdn/8.11.1/img/champion/Zyra.png");
+                put(518, "http://ddragon.leagueoflegends.com/cdn/9.11.1/img/champion/Neeko.png");
 
             }
         };
